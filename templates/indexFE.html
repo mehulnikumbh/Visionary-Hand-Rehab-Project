@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkbox Form</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesFE.css') }}"> <!-- Link to styles2.css -->
+    <link rel="shortcut icon" type="image/png" href="tick.jpg"> <!-- Replace "favicon.png" with the path to your favicon image -->
+</head>
+
+<body>
+    <div class="bg"></div>
+    <div class="star-field">
+        <div class="layer"></div>
+        <div class="layer"></div>
+        <div class="layer"></div>
+    </div>
+
+    <form action="/submit" method="post">
+    <div id="checkboxContainer" style="white-space: nowrap;">
+        <div id="classesCheckbox" style="display: inline-block;">
+            <h2>Select from the following</h2>
+            <label style="display: inline-block; margin-right: 10px;"><input type="checkbox" name="class" value="ball"> <div class="custom-checkbox"><div class="dark-tick"></div></div> Ball</label>
+            <label style="display: inline-block; margin-right: 10px;"><input type="checkbox" name="class" value="cup"> <div class="custom-checkbox"><div class="dark-tick"></div></div> Cup</label>
+            <label style="display: inline-block; margin-right: 10px;"><input type="checkbox" name="class" value="marker"> <div class="custom-checkbox"><div class="dark-tick"></div></div> Marker</label>
+            <label style="display: inline-block; margin-right: 10px;"><input type="checkbox" name="class" value="credit card"> <div class="custom-checkbox"><div class="dark-tick"></div></div> Card</label>
+<!--            <h2>Which hand are you going to use?</h2>-->
+<!--            <label style="display: inline-block; margin-right: 10px;"><input type="radio" name="hand" value="left" class="hidden-checkbox"> <div class="custom-checkbox"><div class="dark-tick"></div></div> Left</label>-->
+<!--            <label style="display: inline-block; margin-right: 10px;"><input type="radio" name="hand" value="right" class="hidden-checkbox"> <div class="custom-checkbox"><div class="dark-tick"></div></div> Right</label>-->
+            <div id="submitBtnContainer">
+                <button id="submitBtn" type="submit">Submit</button>
+            </div>
+        </div>
+    </div>
+    </form>
+
+
+    <!-- Container for the submit button -->
+ 
+    <script>
+<!--        function redirectToIndex3() {-->
+<!--            // Redirect to index3.html-->
+<!--            window.location.href = "indextest.html";-->
+<!--        }-->
+
+        function toggleCheckboxes() {
+            var classesChecked = document.querySelectorAll('input[name="class"]:checked').length > 0;
+            if (classesChecked) {
+                document.getElementById('classesCheckbox').classList.toggle('hidden');
+                document.getElementById('handCheckbox').classList.toggle('hidden');
+            } else {
+                alert("Please select at least one option.");
+            }
+        }
+    </script>
+
+</body>
+
+</html>

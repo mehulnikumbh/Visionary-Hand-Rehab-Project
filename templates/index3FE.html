@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Camera Canvas</title>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f0f0f0;
+    }
+    canvas {
+        border: 2px solid #333;
+        border-radius: 5px;
+    }
+</style>
+</head>
+<body>
+<canvas id="cameraCanvas" width="640" height="360"></canvas>
+
+<script>
+    // Get the canvas element
+    const canvas = document.getElementById('cameraCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // Access the user's camera
+    navigator.mediaDevices.getUserMedia({ video: true })
+        .then(function(stream) {
+            // Create a video element
+            const video = document.createElement('video');
+            video.srcObject = stream;
+            video.autoplay = true;
+
+            // Once the video is loaded, draw it onto the canvas
+            video.addEventListener('loadedmetadata', function() {
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+                drawFrame();
+            });
+
+            // Function to continuously draw frames
+            function drawFrame() {
+                ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                requestAnimationFrame(drawFrame);
+            }
+        })
+        .catch(function(err) {
+            console.error('Error accessing camera:', err);
+        });
+</script>
+</body>
+</html>

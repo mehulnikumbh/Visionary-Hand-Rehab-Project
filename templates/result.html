@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Video Feed with Variables</title>
+</head>
+<body>
+    <h1>Live Video Feed with Variables</h1>
+    <img id="video_feed" src="{{ url_for('video_feed') }}" alt="Video Feed">
+    <p>Count Variable: <span id="count-variable"></span></p>
+    <p>Button State: <span id="button-state"></span></p>
+
+    <script>
+        const img = document.getElementById('video_feed');
+        const countVariableSpan = document.getElementById('count-variable');
+        const buttonStateSpan = document.getElementById('button-state');
+
+        // Function to update count variable and button state
+        function updateVariables() {
+            fetch('/count_variable')
+            .then(response => response.text())
+            .then(countVariable => {
+                countVariableSpan.textContent = countVariable;
+            });
+
+            fetch('/button_state')
+            .then(response => response.text())
+            .then(buttonState => {
+                buttonStateSpan.textContent = buttonState;
+            })
+            .catch(error => console.error('Error updating variables:', error));
+        }
+
+        function reloadVideoFeed() {
+            const img = document.getElementById('video-feed');
+            img.src = '/video_feed'; // Reload video feed
+        }
+
+        // Set time interval for updating variables (milliseconds)
+        const variableUpdateInterval = 100; // Update variables every second
+
+        // Set time interval for reloading video feed (milliseconds)
+        //const videoReloadInterval = 5000; // Example: Reload every 5 seconds
+
+        // Update variables immediately and start timer for reloading video feed
+        updateVariables();
+        setInterval(updateVariables, variableUpdateInterval);
+
+        // Reload video feed after the specified time interval
+        //setTimeout(reloadVideoFeed, videoReloadInterval);
+
+        // Reload video feed every 5 seconds
+        //setInterval(reloadVideoFeed, 5000);
+});
+
+    </script>
+</body>
+</html>

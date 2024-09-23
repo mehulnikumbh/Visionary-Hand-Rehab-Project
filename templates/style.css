@@ -1,0 +1,115 @@
+@mixin vertical-align($position: relative) {
+    position: $position;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+  }
+  @mixin transition {
+    -webkit-transition: all 0.2s ease;
+      -moz-transition: all 0.2s ease;
+      -o-transition: all 0.2s ease;
+      transition: all 0.2s ease;
+  }
+  html { height: 100%;}
+  body {
+    height: 100%;
+    background: #ffffff;
+  }
+  
+  #blu {
+    z-index: 1;
+    @include vertical-align;
+    @include transition;
+    position: relative;
+    width: 80px;
+    height: 80px;
+    font-size: 2em;
+    display: block;
+    margin: auto;
+    text-align: center;
+    outline: none;
+    
+    border-radius: 50px;
+    border: 0;
+    cursor: pointer;
+    
+    i {
+        position: absolute;
+        left: 50%; top: 50%;
+        transform: translate(-50%, -50%);
+        margin: auto;
+        z-index: 1000;
+      }
+    
+    /*animation 2*/
+    background: rgba(0, 0, 0, 1);
+    -webkit-animation: base 1s infinite;
+      @keyframes base {
+        from {
+          background: rgba(0, 0, 0, 1);
+        }
+        to {
+          background: rgba(0, 0, 0, .3);
+        }
+      }
+    
+    &:after {
+      position: absolute;
+      content: "";
+      background: #fff;
+      width: 50px;
+      height: 50px;
+      border-radius: 100px;
+      right: 0; left: 0;
+      top: 0; bottom: 0;
+      margin: auto;
+         
+      /*animation 3*/
+      opacity: 0;
+      transform: scale(0, 0);
+      z-index: 10;
+      -webkit-animation: inline 1s infinite;
+      @keyframes inline {
+        from {
+          opacity: 0;
+          transform: scale(0, 0);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1, 1);
+        }
+      }
+      
+    }
+    
+    
+    &:before {
+      position: absolute;
+      @include transition;
+      content: "";
+      width: 80px;
+      height: 80px;
+      border: 2px solid black;
+      border-radius: 50px;
+      
+      top: -2px;
+      left: -2px;
+      
+      /*animation 1*/
+      transform: scale(1, 1);
+      opacity: 1;
+      -webkit-animation: outline 1s infinite;
+        @keyframes outline {
+          from {
+            transform: scale(1, 1);
+            opacity: 1;
+          }
+          to {
+            transform: scale(2, 2);
+            opacity: 0;
+          }
+        }
+    }
+    
+  }
